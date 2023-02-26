@@ -41,4 +41,10 @@ items[2].textContent='Oranges';
 items[3].textContent='Grapes';
 
 items[1].style.color='red';
+items[2].style.color='orange';
 items[3].style.background='lightgreen';
+items[0].style.background='red';
+
+for(let i=0;i <=items.length; i++){
+    items[i].style.fontWeight='bold';
+}
