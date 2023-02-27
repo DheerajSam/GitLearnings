@@ -25,12 +25,12 @@
 
 //GET ELEMENTS BY CLASSNAME//
 
-let titleHeader = document.getElementsByClassName('title');
-console.log(titleHeader);
+// let titleHeader = document.getElementsByClassName('title');
+// console.log(titleHeader);
 
-titleHeader[0].textContent='ADD ITEMS';
-titleHeader[0].style.fontWeight='bold';
-titleHeader[0].style.color='darkgreen';
+// titleHeader[0].textContent='ADD ITEMS';
+// titleHeader[0].style.fontWeight='bold';
+// titleHeader[0].style.color='darkgreen';
 
 let items=document.getElementsByClassName('list-group-item');
 console.log(items);
@@ -40,11 +40,24 @@ items[1].textContent='Strawberries';
 items[2].textContent='Oranges';
 items[3].textContent='Grapes';
 
-items[1].style.color='red';
-items[2].style.color='orange';
-items[3].style.background='lightgreen';
-items[0].style.background='red';
+// items[1].style.color='red';
+// items[2].style.color='orange';
+// items[3].style.background='lightgreen';
+// items[0].style.background='red';
 
-for(let i=0;i <=items.length; i++){
-    items[i].style.fontWeight='bold';
+// for(let i=0;i <=items.length; i++){
+//     items[i].style.fontWeight='bold';
+// }
+
+//GET ELEMENTS BY TAG NAME
+let li=document.getElementsByTagName('li');
+console.log(li);
+console.log(li[2]);
+li[1].style.color='red';
+li[1].textContent='Strawberries';
+li[3].style.backgroundColor='violet';
+
+for(let i=0;i <li.length; i++){
+    li[i].style.fontWeight = 'bold';
+    li[i].style.backgroundColor = '#f4f4f4';
 }
