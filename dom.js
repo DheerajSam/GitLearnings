@@ -32,13 +32,13 @@
 // titleHeader[0].style.fontWeight='bold';
 // titleHeader[0].style.color='darkgreen';
 
-let items=document.getElementsByClassName('list-group-item');
-console.log(items);
+// let items=document.getElementsByClassName('list-group-item');
+// console.log(items);
 
-items[0].textContent='Apples';
-items[1].textContent='Strawberries';
-items[2].textContent='Oranges';
-items[3].textContent='Grapes';
+// items[0].textContent='Apples';
+// items[1].textContent='Strawberries';
+// items[2].textContent='Oranges';
+// items[3].textContent='Grapes';
 
 // items[1].style.color='red';
 // items[2].style.color='orange';
@@ -50,14 +50,61 @@ items[3].textContent='Grapes';
 // }
 
 //GET ELEMENTS BY TAG NAME
-let li=document.getElementsByTagName('li');
-console.log(li);
-console.log(li[2]);
-li[1].style.color='red';
-li[1].textContent='Strawberries';
-li[3].style.backgroundColor='violet';
+// let li=document.getElementsByTagName('li');
+// console.log(li);
+// console.log(li[2]);
+// li[1].style.color='red';
+// li[1].textContent='Strawberries';
+// li[3].style.backgroundColor='violet';
 
-for(let i=0;i <li.length; i++){
-    li[i].style.fontWeight = 'bold';
-    li[i].style.backgroundColor = '#f4f4f4';
+// for(let i=0;i <li.length; i++){
+//     li[i].style.fontWeight = 'bold';
+//     li[i].style.backgroundColor = '#f4f4f4';
+// }
+
+//QUERY SELECTOR
+// let header = document.querySelector('#main-header');
+// header.style.borderBottom = 'solid 5px grey';
+
+// let input = document.querySelector('input'); //pulls the 1st input element
+// input.value = "Hello World";
+
+// let submit = document.querySelector('input[type="submit"]'); 
+// submit.value = "SEND";
+
+// let item = document.querySelector('.list-group-item');
+// item.style.color = 'red';
+
+// let lastItem = document.querySelector('.list-group-item:last-child');
+// lastItem.style.color = 'coral';
+
+// let secondItem = document.querySelector('.list-group-item:nth-child(2)');
+// secondItem.style.backgroundColor = 'green';
+
+// let thirdItem = document.querySelector('.list-group-item:nth-child(3)');
+// thirdItem.style.display = 'none';
+
+// let titles = document.querySelectorAll('.title');
+// console.log(titles);    //returns a nodelist where we can use arrayfunctions unlike html collections
+// titles[0].innerHTML='ADD ITEMS';
+
+// let odd = document.querySelectorAll('li:nth-child(odd)');
+// let even = document.querySelectorAll('li:nth-child(even)');
+
+// console.log(odd);
+
+// for (let i=0; i<odd.length; i++){
+//     odd[i].style.backgroundColor = '#ccc';
+//     even[i].style.backgroundColor = '#f4f4f4';
+// }
+
+let li = document.querySelectorAll('.list-group-item');
+console.log(li);
+li[1].style.color='darkgreen';
+
+let odd = document.querySelectorAll('li:nth-child(odd)');
+console.log(odd);
+
+for (let i=0; i<odd.length; i++){
+    odd[i].style.backgroundColor = 'lightgreen';    
 }
