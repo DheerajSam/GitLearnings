@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+
+        <title>Local Storage</title>
+    </head>
+    
+    <body>
+        <form onsubmit="addToLocalStorage(event)">
+            <div class="container">
+                <header class="mb-5"><h1>Add User Details To Local Storage</h1></header>
+                      
+                <label class="form-label">User Name:</label>        
+                <input id="user" type="text" class="form-control" required/>
+
+                <label class="form-label">Email:</label>        
+                <input id="email" type="text" class="form-control" required/>
+
+                <label class="form-label">Mobile No:</label>        
+                <input id="phone" type="text" class="form-control"/><br> 
+
+                <button class="btn-secondary btn">Submit</button>
+            </div> 
+        </form>     
+        
+        <script>
+            function addToLocalStorage(event){
+                event.preventDefault();
+                const name = document.getElementById('user').value;
+                const email = document.getElementById('email').value;
+                const mobile  = document.getElementById('phone').value;
+                localStorage.setItem('User Name', name);
+                localStorage.setItem('Email',email);
+                localStorage.setItem('Mobile',mobile);
+            }
+        </script>
+        
+    </body>
+</html>
