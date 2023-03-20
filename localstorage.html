@@ -23,9 +23,13 @@
                 <label class="form-label">Mobile No:</label>        
                 <input id="phone" type="text" class="form-control"/><br> 
 
-                <button class="btn-secondary btn">Submit</button>
+                <button class="btn-secondary btn">Submit</button><br><br>
+
+                
             </div> 
-        </form>     
+        </form>    
+        
+        <ul id="listOfusers"></ul>
         
         <script>
             function addToLocalStorage(event){
@@ -33,23 +37,27 @@
                 const name = document.getElementById('user').value;
                 const email = document.getElementById('email').value;
                 const mobile  = document.getElementById('phone').value;
-                localStorage.setItem('User Name', name);
-                localStorage.setItem('Email',email);
-                localStorage.setItem('Mobile',mobile);
+                // localStorage.setItem('User Name', name);
+                // localStorage.setItem('Email',email);
+                // localStorage.setItem('Mobile',mobile);
                 
                 const obj = {
-                    UserName: name,
-                    Email: email,
-                    Mobile: mobile                
+                    name,
+                    email,
+                    mobile                
                 };
 
-                const objToStr = JSON.stringify(obj);
+                //store multiple user data in local storage taking the key as Email which is unique
+                localStorage.setItem(obj.email,JSON.stringify(obj));
 
-                localStorage.setItem('UserDetails',objToStr);
-                
-                const newObj = JSON.parse(objToStr);
-                console.log(newObj);
-
+                //show the user details on the screen as a list using DOM manipulation
+                showOnscreen(obj);
+            }
+            function showOnscreen(obj){
+                const parentElement = document.getElementById('listOfusers');
+                const childElement = document.createElement('li');
+                childElement.textContent = obj.name +', '+ obj.email +', '+ obj.mobile;
+                parentElement.appendChild(childElement);
             }
         </script>
         
