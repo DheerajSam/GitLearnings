@@ -29,7 +29,9 @@
             </div> 
         </form>    
         
-        <ul id="listOfusers"></ul>
+        <ul id="listOfusers">
+            <!-- <button class="button">Delete</button> -->
+        </ul>
         
         <script>
             function addToLocalStorage(event){
@@ -53,12 +55,37 @@
                 //show the user details on the screen as a list using DOM manipulation
                 showOnscreen(obj);
             }
+
+            
             function showOnscreen(obj){
-                const parentElement = document.getElementById('listOfusers');
-                const childElement = document.createElement('li');
-                childElement.textContent = obj.name +', '+ obj.email +', '+ obj.mobile;
-                parentElement.appendChild(childElement);
-            }
+                let userList = document.getElementById('listOfusers');
+                let childElement = document.createElement('li');
+                childElement.textContent = obj.name +', '+ obj.email +', '+ obj.mobile +' ';
+                userList.appendChild(childElement);
+
+                //Delete event
+                userList.addEventListener('click',ondelete);
+
+                //create del button element
+                let delBtn = document.createElement('button');
+                delBtn.className = 'btn btn-danger btn-sm float-right delete';
+
+                //Delete User Data from Screen and Local Storage
+                function ondelete(e){                
+                    if(e.target.classList.contains('delete')){                    
+                        let li = e.target.parentElement;
+                        userList.removeChild(li);  
+                        localStorage.removeItem(obj.email);                  
+                    }
+                }
+
+                //Append text node
+                delBtn.appendChild(document.createTextNode('Delete'));
+
+                //Append Delete button to li
+                childElement.appendChild(delBtn);
+            }       
+            
         </script>
         
     </body>
