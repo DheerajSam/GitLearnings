@@ -36,6 +36,20 @@
                 localStorage.setItem('User Name', name);
                 localStorage.setItem('Email',email);
                 localStorage.setItem('Mobile',mobile);
+                
+                const obj = {
+                    UserName: name,
+                    Email: email,
+                    Mobile: mobile                
+                };
+
+                const objToStr = JSON.stringify(obj);
+
+                localStorage.setItem('UserDetails',objToStr);
+                
+                const newObj = JSON.parse(objToStr);
+                console.log(newObj);
+
             }
         </script>
         
