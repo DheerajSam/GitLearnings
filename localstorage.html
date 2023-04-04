@@ -24,7 +24,6 @@
                 <input id="phone" type="text" class="form-control"/><br> 
 
                 <button class="btn-secondary btn">Submit</button><br><br>
-
                 
             </div> 
         </form>    
@@ -36,14 +35,14 @@
         <script>
             function addToLocalStorage(event){
                 event.preventDefault();
-                const name = document.getElementById('user').value;
-                const email = document.getElementById('email').value;
-                const mobile  = document.getElementById('phone').value;
+                let name = document.getElementById('user').value;
+                let email = document.getElementById('email').value;
+                let mobile  = document.getElementById('phone').value;
                 // localStorage.setItem('User Name', name);
                 // localStorage.setItem('Email',email);
                 // localStorage.setItem('Mobile',mobile);
                 
-                const obj = {
+                let obj = {
                     name,
                     email,
                     mobile                
@@ -53,38 +52,108 @@
                 localStorage.setItem(obj.email,JSON.stringify(obj));
 
                 //show the user details on the screen as a list using DOM manipulation
-                showOnscreen(obj);
+                showUserOnScreen(obj);
             }
 
             
-            function showOnscreen(obj){
-                let userList = document.getElementById('listOfusers');
-                let childElement = document.createElement('li');
-                childElement.textContent = obj.name +', '+ obj.email +', '+ obj.mobile +' ';
-                userList.appendChild(childElement);
+            // function showOnscreen(obj){
+            //     let parentElem = document.getElementById('listOfusers');
+            //     let childElem = document.createElement('li');
+            //     childElem.textContent = obj.name +', '+ obj.email +', '+ obj.mobile +' ';
+            //     parentElem.appendChild(childElem);
 
-                //Delete event
-                userList.addEventListener('click',ondelete);
+            //     //Delete event
+            //     parentElem.addEventListener('click', ondelete);
 
-                //create del button element
-                let delBtn = document.createElement('button');
-                delBtn.className = 'btn btn-danger btn-sm float-right delete';
+            //     parentElem.addEventListener('click', onclick);
 
-                //Delete User Data from Screen and Local Storage
-                function ondelete(e){                
-                    if(e.target.classList.contains('delete')){                    
-                        let li = e.target.parentElement;
-                        userList.removeChild(li);  
-                        localStorage.removeItem(obj.email);                  
+            //     //create del button element
+            //     let delBtn = document.createElement('button');
+            //     delBtn.className = 'btn btn-danger btn-sm float-right delete';
+
+            //     let editBtn = document.createElement('button');
+            //     editBtn.className = 'btn btn-primary btn-sm float-right edit';
+
+            //     //Delete User Data from Screen and Local Storage
+            //     function ondelete(e){                
+            //         if(e.target.classList.contains('delete')){                    
+            //             let li = e.target.parentElem;                         
+            //             localStorage.removeItem(obj.email); 
+            //             parentElem.removeChild(li);                  
+            //         }
+            //     }
+
+            //     //Edit User Data from Screen 
+            //         function onclick(event){                
+            //         if(event.target.classList.contains('edit')){                    
+                                                  
+            //             localStorage.removeItem(obj.email); 
+            //             parentElem.removeChild(childElem)
+                          
+                        
+            //             document.getElementById('user').value = obj.name;
+            //             document.getElementById('email').value = obj.email;
+            //             document.getElementById('phone').value = obj.mobile;
+
+            //         }
+            //     }
+
+            //     //Append text node
+            //     delBtn.appendChild(document.createTextNode('Delete'));
+            //     editBtn.appendChild(document.createTextNode('Edit'));
+
+            //     //Append Delete and Edit buttons to li
+            //     childElem.appendChild(delBtn);
+            //     childElem.appendChild(editBtn);
+            //     parentElem.appendChild(childElem)
+                
+            // }       
+
+            function showUserOnScreen(obj){
+                    let parentElem = document.getElementById('listOfusers');
+                    let childElem = document.createElement('li');
+                    childElem.textContent = obj.name +', '+ obj.email +', '+ obj.mobile +' ';
+                    parentElem.appendChild(childElem);
+
+                    //Delete event
+                    parentElem.addEventListener('click', onclick);
+                    parentElem.addEventListener('click', onclick);
+
+                    //Create Delete Button
+                    let delBtn = document.createElement('input');
+                    delBtn.type = "button";
+                    delBtn.value = "X";
+                    delBtn.className = 'btn btn-danger btn-sm float-right delete';
+
+                    //Delete Function
+                    delBtn.onclick = () => {
+                        localStorage.removeItem(obj.email); //removes user from localStorage
+                        parentElem.removeChild(childElem);  //removes user details on screen
                     }
-                }
 
-                //Append text node
-                delBtn.appendChild(document.createTextNode('Delete'));
+                    //Create Edit Button
+                    let editBtn = document.createElement('input');
+                    editBtn.type = "button";
+                    editBtn.value = "Edit";
+                    editBtn.className = 'btn btn-primary btn-sm float-right edit';
 
-                //Append Delete button to li
-                childElement.appendChild(delBtn);
-            }       
+                    //Edit Function
+                    editBtn.onclick = () => {
+
+                        localStorage.removeItem(obj.email);
+                        parentElem.removeChild(childElem);
+
+                        //populate user details that needs to be edited in the
+                        document.getElementById('user').value = obj.name;
+                        document.getElementById('email').value = obj.email;
+                        document.getElementById('phone').value = obj.mobile;
+                    }
+
+                    //Append Delete and Edit buttons to li
+                    childElem.appendChild(delBtn);
+                    childElem.appendChild(editBtn);
+                    parentElem.appendChild(childElem);
+            }
             
         </script>
         
