@@ -79,6 +79,7 @@
                     })
                     .catch((error) => {console.log(error)})
 
+                
             })
             
             function showUserOnScreen(obj){
@@ -99,7 +100,18 @@
 
                     //Delete Function
                     delBtn.onclick = () => {
-                        localStorage.removeItem(obj.email); //removes user from localStorage
+
+                        axios
+                            .delete("https://crudcrud.com/api/79734cfdd9464bdf9f208bc02bb0f1fc/appointmentlog/64e7b7c34c636203e876e4f8")
+                            .then((response) => {
+                                console.log(response)
+                                for (var i=0; i<response.data.length; i++){
+                                    showUserOnScreen(response.data[i]);
+                                }
+                            })
+                            .catch((error) => {console.log(error)})
+
+                        //localStorage.removeItem(obj.email); //removes user from localStorage
                         parentElem.removeChild(childElem);  //removes user details on screen
                     }
 
