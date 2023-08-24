@@ -52,7 +52,7 @@
                     mobile                
                 };
 
-                axios.post("https://crudcrud.com/api/79734cfdd9464bdf9f208bc02bb0f1fc/appointmentlog",obj)
+                axios.post("https://crudcrud.com/api/60753b322fc5435384612539cb87e925/appointmentlog/64e7d11a4c636203e876e50b",obj)
                     .then((response) => {
                         showUserOnScreen(response.data);
                         //console.log(response)
@@ -70,7 +70,7 @@
             
             window.addEventListener("DOMContentLoaded", () => {
 
-                axios.get("https://crudcrud.com/api/79734cfdd9464bdf9f208bc02bb0f1fc/appointmentlog")
+                axios.get("https://crudcrud.com/api/60753b322fc5435384612539cb87e925/appointmentlog")
                     .then((response) => {
                         console.log(response)
                         for (var i=0; i<response.data.length; i++){
@@ -102,7 +102,7 @@
                     delBtn.onclick = () => {
 
                         axios
-                            .delete("https://crudcrud.com/api/79734cfdd9464bdf9f208bc02bb0f1fc/appointmentlog/64e7b7c34c636203e876e4f8")
+                            .delete("https://crudcrud.com/api/60753b322fc5435384612539cb87e925/appointmentlog/64e7d1354c636203e876e50c")
                             .then((response) => {
                                 console.log(response)
                                 for (var i=0; i<response.data.length; i++){
@@ -124,13 +124,29 @@
                     //Edit Function
                     editBtn.onclick = () => {
 
-                        localStorage.removeItem(obj.email);
+
+
+                        //localStorage.removeItem(obj.email);
                         parentElem.removeChild(childElem);
 
                         //populate user details that needs to be edited in the
                         document.getElementById('user').value = obj.name;
                         document.getElementById('email').value = obj.email;
                         document.getElementById('phone').value = obj.mobile;
+
+                        axios
+                            .put("https://crudcrud.com/api/60753b322fc5435384612539cb87e925/appointmentlog/64e7d11a4c636203e876e50b", {
+                                name: 'Hari Prasad', 
+                                email: 'hariprasad@gmail.com', 
+                                mobile: '1234567'
+                            })
+                            .then((response) => {
+                                console.log(response)
+                                for (var i=0; i<response.data.length; i++){
+                                    showUserOnScreen(response.data[i]);
+                                }
+                            })
+                            .catch((error) => {console.log(error)})
                     }
 
                     //Append Delete and Edit buttons to li
