@@ -1,0 +1,120 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+
+        <title>Saving User Details To CrudCrud</title>
+    </head>
+    
+    <body>
+        <form onsubmit="addToLocalStorage(event)">
+            <div class="container">
+                <header class="mb-5"><h1>Saving User Details To CrudCrud</h1></header>
+                      
+                <label class="form-label">User Name:</label>        
+                <input id="user" type="text" class="form-control" required/>
+
+                <label class="form-label">Email:</label>        
+                <input id="email" type="text" class="form-control" required/>
+
+                <label class="form-label">Mobile No:</label>        
+                <input id="phone" type="text" class="form-control"/><br> 
+
+                <button class="btn-secondary btn">Submit</button><br><br>
+                
+            </div> 
+        </form>    
+        
+        <ul id="listOfusers">
+            <!-- <button class="button">Delete</button> -->
+        </ul>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
+
+        
+        
+        <script>
+            function addToLocalStorage(event){
+                event.preventDefault();
+                let name = document.getElementById('user').value;
+                let email = document.getElementById('email').value;
+                let mobile  = document.getElementById('phone').value;
+                // localStorage.setItem('User Name', name);
+                // localStorage.setItem('Email',email);
+                // localStorage.setItem('Mobile',mobile);
+                
+                let obj = {
+                    name,
+                    email,
+                    mobile                
+                };
+
+                axios.post("https://crudcrud.com/api/79734cfdd9464bdf9f208bc02bb0f1fc/appointmentlog",obj)
+                    .then((response) => {
+                        showUserOnScreen(response.data);
+                        //console.log(response)
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    })
+
+                //store multiple user data in local storage taking the key as Email which is unique
+                //localStorage.setItem(obj.email,JSON.stringify(obj));
+
+                //show the user details on the screen as a list using DOM manipulation
+                //showUserOnScreen(obj);
+            }            
+            
+            function showUserOnScreen(obj){
+                    let parentElem = document.getElementById('listOfusers');
+                    let childElem = document.createElement('li');
+                    childElem.textContent = obj.name +', '+ obj.email +', '+ obj.mobile +' ';
+                    parentElem.appendChild(childElem);
+
+                    //Delete event
+                    parentElem.addEventListener('click', onclick);
+                    parentElem.addEventListener('click', onclick);
+
+                    //Create Delete Button
+                    let delBtn = document.createElement('input');
+                    delBtn.type = "button";
+                    delBtn.value = "X";
+                    delBtn.className = 'btn btn-danger btn-sm float-right delete';
+
+                    //Delete Function
+                    delBtn.onclick = () => {
+                        localStorage.removeItem(obj.email); //removes user from localStorage
+                        parentElem.removeChild(childElem);  //removes user details on screen
+                    }
+
+                    //Create Edit Button
+                    let editBtn = document.createElement('input');
+                    editBtn.type = "button";
+                    editBtn.value = "Edit";
+                    editBtn.className = 'btn btn-primary btn-sm float-right edit';
+
+                    //Edit Function
+                    editBtn.onclick = () => {
+
+                        localStorage.removeItem(obj.email);
+                        parentElem.removeChild(childElem);
+
+                        //populate user details that needs to be edited in the
+                        document.getElementById('user').value = obj.name;
+                        document.getElementById('email').value = obj.email;
+                        document.getElementById('phone').value = obj.mobile;
+                    }
+
+                    //Append Delete and Edit buttons to li
+                    childElem.appendChild(delBtn);
+                    childElem.appendChild(editBtn);
+                    parentElem.appendChild(childElem);
+            }
+            
+        </script>
+        
+    </body>
+</html>
