@@ -52,7 +52,7 @@
                     mobile                
                 };
 
-                axios.push("https://crudcrud.com/api/79734cfdd9464bdf9f208bc02bb0f1fc/appointmentlog",obj)
+                axios.post("https://crudcrud.com/api/79734cfdd9464bdf9f208bc02bb0f1fc/appointmentlog",obj)
                     .then((response) => {
                         showUserOnScreen(response.data);
                         //console.log(response)
