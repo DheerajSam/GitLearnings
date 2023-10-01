@@ -1,0 +1,141 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+
+        <title>CANDY SHOP SELLER</title>
+    </head>
+    
+    <body>
+        <form onsubmit="addToCrudCrud(event)">
+            <div class="container">
+                <header class="mb-5"><h1>Saving Candy Details To CrudCrud</h1></header>
+                      
+                <label class="form-label">Candy Name:</label>        
+                <input id="cname" type="text" class="form-control" required/>
+
+                <label class="form-label">Description:</label>        
+                <input id="cdesc" type="text" class="form-control" required/>
+
+                <label class="form-label">Price:</label>        
+                <input id="price" type="number" class="form-control" required/>
+
+                <label class="form-label">Quantity:</label>        
+                <input id="qty" type="number" class="form-control"/><br> 
+
+                <button class="btn-secondary btn">Add Item</button><br><br>
+                
+            </div> 
+        </form>  
+        
+        <h2>Candies For Sale</h2>
+        <ul id="candyForSale">
+            <!-- <button class="button">Delete</button> -->
+        </ul>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>                  
+        
+        <script>
+            function addToCrudCrud(event){
+                event.preventDefault();
+                let candyname = document.getElementById('cname').value;
+                let description = document.getElementById('cdesc').value;
+                let candyprice  = document.getElementById('price').value;
+                let candyquantity  = document.getElementById('qty').value;
+
+                //Array to store candy objects for sale
+                let candiesForSale = [];
+                
+                let obj = {
+                    candyname,
+                    description,
+                    candyprice,
+                    candyquantity                
+                };
+
+                axios.post("https://crudcrud.com/api/e32012e08d3e4685bedc3731797b9ee6/StockDetailsOfCandy",obj)
+                    .then((response) => {
+                        showUserOnScreen(response.data);
+                        //console.log(response)
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    })
+            }        
+            
+            window.addEventListener("DOMContentLoaded", () => {
+
+                axios.get("https://crudcrud.com/api/e32012e08d3e4685bedc3731797b9ee6/StockDetailsOfCandy")
+                    .then((response) => {
+                        console.log(response)
+                        for (var i=0; i<response.data.length; i++){
+                            showUserOnScreen(response.data[i]);
+                        }
+                    })
+                    .catch((error) => {console.log(error)})                
+            })
+            
+            function showUserOnScreen(obj){
+                    let parentElem = document.getElementById('candyForSale');
+                    let childElem = document.createElement('li');
+                    childElem.textContent = obj.candyname +', '+ obj.description +', '+ obj.candyprice +', '+ obj.candyquantity +' ';
+                    parentElem.appendChild(childElem);
+
+                    //Buy events
+                    parentElem.addEventListener('click', onclick);
+                    parentElem.addEventListener('click', onclick);
+                    parentElem.addEventListener('click', onclick);
+
+                    //Create Buy Buttons
+                    let buyBtn1 = document.createElement('input');
+                    buyBtn1.type = "button";
+                    buyBtn1.value = "Buy 1";
+                    buyBtn1.className = 'btn btn-secondary btn-sm float-right ';
+
+                    let buyBtn2 = document.createElement('input');
+                    buyBtn2.type = "button";
+                    buyBtn2.value = "Buy 2";
+                    buyBtn2.className = 'btn btn-secondary btn-sm float-right ';
+
+                    let buyBtn3 = document.createElement('input');
+                    buyBtn3.type = "button";
+                    buyBtn3.value = "Buy 3";
+                    buyBtn3.className = 'btn btn-secondary btn-sm float-right ';
+
+                    //Buy 1 Function
+                    buyBtn1.onclick = () => {
+
+                        
+
+                        axios
+                            .put("https://crudcrud.com/api/e32012e08d3e4685bedc3731797b9ee6/StockDetailsOfCandy/6518bfb8b987ad03e876d58b", {
+                                candyname: 'eclairs',
+                                description: 'chocolate',
+                                candyprice: 2,
+                                candyquantity: 99
+                            })
+                            .then((response) => {
+                                console.log(response)
+                                for (var i=0; i<response.data.length; i++){
+                                    showUserOnScreen(response.data[i]);
+                                }
+                            })
+                            .catch((error) => {console.log(error)})
+
+                     
+                        //parentElem.removeChild(childElem);  //removes user details on screen
+                    }
+
+                    //Append Buys buttons to li
+                    childElem.appendChild(buyBtn1);
+                    childElem.appendChild(buyBtn2);
+                    childElem.appendChild(buyBtn3);
+                    parentElem.appendChild(childElem);
+            }                            
+            
+        </script>
+    </body>
+</html>
